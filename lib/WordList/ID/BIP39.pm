@@ -18,7 +18,7 @@ selecting the most common Indonesian words from Wikipedia (see
 L<WordLists::ID::Common> repository) that are at least 4 characters long and are
 not found in the other BIP 39 wordlists (L<EN|WordList::EN::BIP39>,
 L<ES|WordList::ES::BIP39>, L<FR|WordList::FR::BIP39>,
-L<FR|WordList::IT::BIP39>). Characteristics of this wordlist:
+L<IT|WordList::IT::BIP39>). Characteristics of this wordlist:
 
 =over
 
