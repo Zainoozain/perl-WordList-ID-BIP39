@@ -1,9 +1,21 @@
-#!/bin/bash
+#!/usr/bin/env perl
 
-setop --diff \
-  <(perl -lne'last if /#/; s/\t.*//; next unless length >= 4; print' ../perl-WordLists-ID-Common/devdata/words-curated.txt) \
-  <(wordlist -w EN::BIP39) \
-  <(wordlist -w ES::BIP39) \
-  <(wordlist -w FR::BIP39) \
-  <(wordlist -w IT::BIP39) \
-  | perl -lne'print unless $seen{substr($_,0,4)}++' | head -n2048
+use strict;
+use warnings;
+use FindBin '$Bin';
+
+# we start with the wordlist that is manually curated. selected words are
+# indented
+my %seen_4letters;
+my @words;
+open my $fh, "<", "$Bin/../devdata/words.txt";
+while (<$fh>) {
+    chomp;
+    next unless /^\s+((\w{4})\w*)$/;
+    next if $seen_4letters{$2}++;
+    push @words, $1;
+    #last if @words >= 2048;
+}
+
+warn "Only ".scalar(@words)." words\n" if @words < 2048;
+print map {"$_\n"} @words;
